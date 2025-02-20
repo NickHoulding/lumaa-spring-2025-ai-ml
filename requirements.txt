@@ -1,0 +1,2 @@
+chromadb==0.4.22
+scikit-learn==1.4.0
