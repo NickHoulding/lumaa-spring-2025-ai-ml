@@ -1,9 +1,11 @@
-import csv
-import shutil
 import chromadb
+import pickle
+import csv
 from sklearn.feature_extraction.text import TfidfVectorizer
+from pathlib import Path
 
 CSV_FILE = 'MovieDatabase.csv'
+VECTORIZER_FILE = 'vectorizer.pkl'
 
 def get_chroma_db() -> chromadb.PersistentClient:
     """
@@ -144,19 +146,72 @@ def init_db(
         metadatas=metadatas
     )
     
+    with open(VECTORIZER_FILE, 'wb') as f:
+        pickle.dump(vectorizer, f)
+    
     return vectorizer
+
+def load_vectorizer() -> TfidfVectorizer:
+    """
+    Load the saved vectorizer from disk.
+
+    Args:
+        None
+
+    Returns:
+        TfidfVectorizer: The loaded vectorizer.
+
+    Raises:
+        None
+    """
+    with open(VECTORIZER_FILE, 'rb') as f:
+        return pickle.load(f)
+
+def get_input() -> str:
+    """
+    Gets the user's movie preference input.
+
+    Args:
+        None
+
+    Returns:
+        str: The user input.
+
+    Raises:
+        None
+    """
+    is_valid = False
+
+    while not is_valid:
+        try:
+            user_input = str(input("Enter movie preference: ")).strip()
+            
+            if user_input:
+                is_valid = True
+            else:
+                print("Please enter a valid movie preference.")
+        
+        except Exception as e:
+            print(f"Error: {e}")
+
+    return user_input
 
 def main():
     """Main function to run the program."""
     try:
-        shutil.rmtree('chroma_db', ignore_errors=True)
+        db = get_chroma_db()
         
-        db = chromadb.PersistentClient(path='chroma_db')
-        collection = db.create_collection('movies')
-        
-        vectorizer = init_db(db, collection)
+        # Check if database and vectorizer exist
+        db_exists = Path('chroma_db').exists()
+        vectorizer_exists = Path(VECTORIZER_FILE).exists()
 
-        user_input = str(input("Enter movie preference: "))
+        if not db_exists or not vectorizer_exists:
+            collection = db.create_collection('movies')
+            vectorizer = init_db(db, collection)
+        else:
+            vectorizer = load_vectorizer()
+
+        user_input = get_input()
         recs = get_top_recs(user_input, vectorizer)
         print_recs(recs)
 
