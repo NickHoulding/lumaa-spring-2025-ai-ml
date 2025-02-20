@@ -1,4 +1,5 @@
 import csv
+import shutil
 import chromadb
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -120,7 +121,19 @@ def init_db(
     db: chromadb.PersistentClient, 
     collection: chromadb.Collection
     ):
-    """Initialize the database."""
+    """
+    Initialize the database with movie data.
+
+    Args:
+        db (chromadb.PersistentClient): The ChromaDB client.
+        collection (chromadb.Collection): The ChromaDB collection.
+    
+    Returns:
+        TfidfVectorizer: The vectorizer used to transform the input.
+    
+    Raises:
+        None
+    """
     ids, documents, titles, metadatas = read_movie_data()
     embeddings, vectorizer = create_embeddings(documents)
     
@@ -136,15 +149,11 @@ def init_db(
 def main():
     """Main function to run the program."""
     try:
-        # Delete existing database
-        import shutil
         shutil.rmtree('chroma_db', ignore_errors=True)
         
-        # Create fresh database
         db = chromadb.PersistentClient(path='chroma_db')
         collection = db.create_collection('movies')
         
-        # Initialize database and get vectorizer
         vectorizer = init_db(db, collection)
 
         user_input = str(input("Enter movie preference: "))
