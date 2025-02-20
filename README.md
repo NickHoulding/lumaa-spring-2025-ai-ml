@@ -14,9 +14,10 @@ https://huggingface.co/datasets/moizmoizmoizmoiz/MovieRatingDB.
 
 ## Running
 - Run the code: `python recommend.py`
+- Enter your movie preference when prompted by the program.
 
 ## Results
-Example:  
+Example:    
 Enter movie preference: Thrilling action movies set in space.  
   
 Recommendations:  
