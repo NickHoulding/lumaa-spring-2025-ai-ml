@@ -1,6 +1,7 @@
 import chromadb
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
+from init import init_data
 from pathlib import Path
 
 CSV_FILE = 'MovieDatabase.csv'
@@ -62,10 +63,10 @@ def print_recs(recs: dict) -> None:
     Raises:
         None
     """
-    print("\nRecommendations:")
+    print("\nMovie Recommendations:")
 
     for movie in recs['metadatas'][0]:
-        print(movie['title'])
+        print("- " + movie['title'])
 
 def get_vectorizer() -> TfidfVectorizer:
     """
@@ -119,14 +120,15 @@ def main():
         vectorizer_exists = Path(VECTORIZER_FILE).exists()
 
         if not db_exists and not vectorizer_exists:
-            print("Data is not initialized. Run 'python init.py' to initialize the movie data.")
-        else:
-            db = get_chroma_db()
-            vectorizer = get_vectorizer()
-            user_input = get_input()
+            print("Initializing data...")
+            init_data()
 
-            recs = get_top_recs(user_input, vectorizer)
-            print_recs(recs)
+        db = get_chroma_db()
+        vectorizer = get_vectorizer()
+        user_input = get_input()
+
+        recs = get_top_recs(user_input, vectorizer)
+        print_recs(recs)
 
     except Exception as e:
         print(f"Error: {e}")

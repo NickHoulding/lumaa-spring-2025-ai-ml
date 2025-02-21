@@ -88,7 +88,7 @@ def init_db(
     with open(VECTORIZER_FILE, 'wb') as f:
         pickle.dump(vectorizer, f)
 
-def main():
+def init_data():
     db_exists = Path('chroma').exists()
     vectorizer_exists = Path(VECTORIZER_FILE).exists()
 
@@ -99,6 +99,3 @@ def main():
         print("database and vectorizer initialized.")
     else:
         print("database and vectorizer already exist.")
-
-if __name__ == '__main__':
-    main()
