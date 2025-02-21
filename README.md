@@ -20,12 +20,9 @@ https://huggingface.co/datasets/moizmoizmoizmoiz/MovieRatingDB.
 Example:  
 Enter movie preference: Thrilling action movies set in space.  
   
-Recommendations:  
-Aliens  
-Mad Max: Fury Road  
-The Iron Giant  
-Taxi Driver  
-Rush
-
-## Salary Expectation
-I am looking for a salary of $6,000 per month.
+Movie Recommendations:  
+- Aliens  
+- Mad Max: Fury Road  
+- The Iron Giant  
+- Taxi Driver  
+- Rush
