@@ -2,7 +2,7 @@
 ## Dataset
 - This movie dataset is from HuggingFace's datasets library:  
 https://huggingface.co/datasets/moizmoizmoizmoiz/MovieRatingDB.
-- It is included in this repository, and is 250 rows in size. The data will be initialized automatically the first time recommend.py is run.
+- It is included in this repository, and is 250 rows in size. The data will be initialized automatically the first time `recommend.py` is run.
 
 ## Setup
 - Python3 version: `3.10.12`
