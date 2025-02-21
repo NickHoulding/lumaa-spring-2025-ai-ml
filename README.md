@@ -11,18 +11,19 @@ https://huggingface.co/datasets/moizmoizmoizmoiz/MovieRatingDB.
    - Linux/Mac: `source venv/bin/activate`
    - Windows: `.\venv\Scripts\activate`
 - Install Dependencies: `pip install -r requirements.txt`
+- Initialize the movie data: `python init.py`
 
 ## Running
 - Run the code: `python recommend.py`
 - Enter your movie preference when prompted by the program.
 
 ## Results
-Example:    
+Example:  
 Enter movie preference: Thrilling action movies set in space.  
   
 Recommendations:  
 Aliens  
 Mad Max: Fury Road  
 The Iron Giant  
-Heat  
-Come and See
+Taxi Driver  
+Rush
